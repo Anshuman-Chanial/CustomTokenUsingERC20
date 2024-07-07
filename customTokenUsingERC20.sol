@@ -3,24 +3,30 @@ pragma solidity ^0.8.26;
 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.0.0/contracts/token/ERC20/ERC20.sol";
 
-contract customTokenUsingERC20 is ERC20{
+contract customToken is ERC20{
 	address private owner;
 	
-	constructor(string memory tokenName, string memory tokenSymbol, uint ownerTokens) ERC20(tokenName, tokenSymbol) {
+	constructor(string memory name, string memory symbol) ERC20(name, symbol) {
 		owner = msg.sender;
-		_mint(msg.sender, ownerTokens);
+		_mint(msg.sender, 100 * 10**uint(decimals()));
 	}
-	
+
 	modifier onlyOwner() {
 		require(msg.sender == owner, "Only owner can call this function");
 		_;
 	}
 
-	function mintTo(address recipient, uint mint_token) public onlyOwner {
-		_mint(recipient, mint_token);
+	function mintTo(address to, uint amount) public onlyOwner {
+		_mint(to, amount);
 	}
 	
-	function burn(uint burn_token) public {
-		_burn(msg.sender, burn_token);
+	function burn(uint amount) public {
+		_burn(msg.sender, amount);
+	}
+	
+	
+	function transfer(address to, uint amount) public override returns(bool){
+		_transfer(msg.sender, to, amount);
+		return true;
 	}
 }

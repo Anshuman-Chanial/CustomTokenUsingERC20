@@ -6,6 +6,7 @@ This project is a Solidity smart contract for a custom ERC-20 token using OpenZe
 
 - **Mint function** (`mintTo`): Allows the owner to mint new tokens to a specified address.
 - **Burn function** (`burn`): Allows any token holder to burn their tokens.
+- **Transfer Function** (`transfer`): Allows user to trasnfer their token to any specified address.
 - All the functionalities of ERC20.sol
 
 ## Getting Started
